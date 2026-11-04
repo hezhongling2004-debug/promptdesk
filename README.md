@@ -4,6 +4,8 @@ macOS 本地提示词库：分类拖动、收藏、复制、Markdown 预览，�
 
 ## 下载与安装
 
+前往 [GitHub Releases 下载应用测试包](https://github.com/hezhongling2004-debug/promptdesk/releases)，选择名字含 `macOS-universal-PREVIEW` 的 ZIP；GitHub 自动生成的 Source code 是源码，不是可双击运行的应用。
+
 要求 macOS 14 或更新版本。通用应用同时包含 Apple Silicon 和 Intel 架构。将 ZIP 解压，将“提示词工作台.app”拖入“应用程序”再打开。首次启动只创建示例提示词，不会自动安装任何技能，也不包含作者的个人提示词库、调用记录或账号。
 
 **分发状态：当前 PREVIEW 包是未公证测试版。** 本机打开成功不代表网上下载后能直接打开。正式公开发行需 Developer ID 签名和 Apple 公证；项目提供 `release.sh --release`，缺少签名配置时会拒绝生成正式包。测试者请先了解 [Apple 的应用安全检查](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac)，本项目不附带关闭安全保护或删除隔离标记的脚本。
