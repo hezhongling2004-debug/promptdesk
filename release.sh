@@ -7,6 +7,8 @@ if [[ "$MODE" == --release && ( -z "${SIGN_IDENTITY:-}" || -z "${NOTARY_PROFILE:
   echo 'Public release requires SIGN_IDENTITY (Developer ID Application) and NOTARY_PROFILE (notarytool keychain profile).'; exit 1
 fi
 zsh build.sh
+xcrun swiftc -swift-version 5 Sources/WorkflowPackage.swift Sources/WorkflowDeployment.swift Sources/WorkflowNaming.swift Sources/WorkflowRename.swift Tests/*.swift -o build/workflow-test
+build/workflow-test
 python3 test-usage.py
 node test-harness-labels.mjs
 APP='build/提示词工作台.app'
@@ -17,9 +19,9 @@ if [[ "$MODE" == --release ]]; then
   xcrun notarytool submit dist/notarization-upload.zip --keychain-profile "$NOTARY_PROFILE" --wait
   xcrun stapler staple "$APP"
   spctl --assess --type execute --verbose "$APP"
-  ZIP='dist/PromptDesk-1.5.0-macOS-universal.zip'
+  ZIP='dist/PromptDesk-1.6.1-macOS-universal.zip'
 else
-  ZIP='dist/PromptDesk-1.5.0-macOS-universal-PREVIEW-not-notarized.zip'
+  ZIP='dist/PromptDesk-1.6.1-macOS-universal-PREVIEW-not-notarized.zip'
 fi
 codesign --verify --deep --strict "$APP"
 lipo "$APP/Contents/MacOS/PromptDesk" -verify_arch arm64 x86_64

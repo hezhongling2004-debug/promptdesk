@@ -222,6 +222,7 @@ struct Workbench: View {
     @State private var editing: Prompt?
     @State private var deleting: Prompt?
     @State private var importDetails: Prompt?
+    @State private var showingWorkflows = false
     var categories: [String] { library.categories }
     var filtered: [Prompt] {
         let result=library.items.filter { p in
@@ -249,6 +250,10 @@ struct Workbench: View {
                 HStack(spacing:6) { Image(nsImage:BrandIcon.image).resizable().frame(width:30,height:30).accessibilityLabel("提示词工作台蛛网图标"); Text("提示词工作台").font(.headline) }.padding(.bottom,16)
                 nav("全部提示词", "square.stack")
                 nav("我的收藏", "star")
+                Button { showingWorkflows = true } label: {
+                    Label("工作流技能", systemImage: "folder.badge.gearshape")
+                        .padding(.vertical, 7).padding(.horizontal, 10)
+                }.buttonStyle(.plain)
                 Text("分类").font(.caption).foregroundStyle(.secondary).padding(.top, 20)
                 ScrollView { VStack(spacing: 3) { ForEach(categories, id: \.self) { title in
                     nav(title,"folder")
@@ -340,6 +345,9 @@ struct Workbench: View {
                 if !library.message.isEmpty { Text(library.message).font(.callout).foregroundStyle(.secondary).padding(.horizontal,20).padding(.bottom,14).textSelection(.enabled) }
             }.frame(minWidth:390,maxWidth:.infinity)
         }.frame(minWidth: 1000, minHeight: 620)
+            .sheet(isPresented: $showingWorkflows) {
+                WorkflowLibraryView(root: library.url.deletingLastPathComponent().appendingPathComponent("Workflows", isDirectory: true))
+            }
             .sheet(item:$editing) { p in Editor(library:library,draft:p,saved:{ id in category = "全部提示词"; query = ""; selection = id }) }
             .sheet(item:$importDetails) { p in ImportDetails(library:library,prompt:p) }
             .sheet(isPresented:$showUsage) { UsageDetails(usage:usage,library:library,prompt:usagePrompt) }

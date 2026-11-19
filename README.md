@@ -4,7 +4,7 @@ macOS 本地提示词库：分类拖动、收藏、复制、Markdown 预览，�
 
 ## 下载与安装
 
-前往 [GitHub Releases 下载应用测试包](https://github.com/hezhongling2004-debug/promptdesk/releases)，选择名字含 `macOS-universal-PREVIEW` 的 ZIP；GitHub 自动生成的 Source code 是源码，不是可双击运行的应用。
+前往本仓库的 [Releases 下载应用测试包](../../releases)，选择名字含 `macOS-universal-PREVIEW` 的 ZIP；GitHub 自动生成的 Source code 是源码，不是可双击运行的应用。
 
 要求 macOS 14 或更新版本。通用应用同时包含 Apple Silicon 和 Intel 架构。将 ZIP 解压，将“提示词工作台.app”拖入“应用程序”再打开。首次启动只创建示例提示词，不会自动安装任何技能，也不包含作者的个人提示词库、调用记录或账号。
 
@@ -19,6 +19,16 @@ macOS 本地提示词库：分类拖动、收藏、复制、Markdown 预览，�
 - 管理弹窗可单独移除技能并保留提示词。删除提示词前弹窗说明：同时移除本机受工作台管理的技能，移出的完整技能目录备份到 RemovedSkills；来源无法确认或移除失败则保留提示词。已经进入目标工具对话的内容不会撤回。
 
 ## 工具兼容性与边界
+
+### 多文件工作流技能（1.6）
+
+从侧栏打开“工作流技能”，选择包含 `SKILL.md` 的文件夹，或者选择直接包含多个技能文件夹的父目录。导入后，工作台在资料目录的 `Workflows/` 下保存独立副本。技能说明里的相对路径应指向包内实际文件，例如 `assets/brief.md`。仓库提供可直接导入的 [会议纪要示例](Examples/meeting-brief/)。
+
+选中技能，分别安装到 Codex 或 DeepSeek Harness。以示例为例，Codex 可在技能选择器选中它，或输入 `$meeting-brief` 并补充任务。Harness 在聊天框开头输入 `/meeting-brief` 并补充任务。重新导入修改过的同名文件夹后，可更新已安装的副本。备份多文件技能时请一起复制 `Workflows/`。
+
+点技能标题旁的「重命名」即可预览新名称。显示名支持中文，调用名使用小写英文字母、数字和短横线。例如把显示名设为「课程方案评审」、调用名设为 `course-review`，保存后即可分别用 `$course-review` 和 `/course-review` 引用。工作台会同步已安装的自管副本。
+
+### 文本提示词
 
 | 工具 | 默认技能目录 | 说明 |
 | --- | --- | --- |
